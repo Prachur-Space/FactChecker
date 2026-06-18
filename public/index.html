@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FactCheck AI — Automated Claim Verification</title>
+  <meta name="description" content="Upload any PDF document and let AI automatically extract, identify, and verify every factual claim using Gemini AI and Google Search.">
+  <meta name="keywords" content="fact checking, AI, claim verification, PDF analysis, Gemini AI">
+  <meta name="author" content="FactCheck AI">
+  <meta name="theme-color" content="#06060f">
+  <meta property="og:title" content="FactCheck AI — Automated Claim Verification">
+  <meta property="og:description" content="Upload any PDF and verify every factual claim with AI-powered analysis.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- HEADER                                                  -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <header class="app-header">
+    <div class="container">
+      <div class="logo">
+        <svg class="logo-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M18 2L4 9V17.09C4 24.53 9.96 31.44 18 34C26.04 31.44 32 24.53 32 17.09V9L18 2Z" fill="url(#shieldGrad)" opacity="0.15"/>
+          <path d="M18 2L4 9V17.09C4 24.53 9.96 31.44 18 34C26.04 31.44 32 24.53 32 17.09V9L18 2Z" stroke="url(#shieldGrad)" stroke-width="1.5" fill="none"/>
+          <path d="M12 18L16 22L24 14" stroke="url(#checkGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <defs>
+            <linearGradient id="shieldGrad" x1="4" y1="2" x2="32" y2="34">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+            <linearGradient id="checkGrad" x1="12" y1="14" x2="24" y2="22">
+              <stop offset="0%" stop-color="#10b981"/>
+              <stop offset="100%" stop-color="#34d399"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <h1 class="logo-text">FactCheck <span class="logo-highlight">AI</span></h1>
+      </div>
+      <p class="tagline">Upload a PDF. Verify every claim.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- UPLOAD SECTION                                         -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="upload-section" class="section upload-section">
+      <!-- API Key Input -->
+      <div class="api-key-container">
+        <label for="api-key-input" class="api-key-label">Gemini API Key</label>
+        <div class="api-key-input-wrapper">
+          <input type="password" id="api-key-input" class="api-key-input" placeholder="Paste your Gemini API Key here..." autocomplete="off">
+          <button id="toggle-api-key-btn" class="api-key-toggle-btn" type="button" aria-label="Toggle API Key visibility">
+            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="eye-off-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22"/></svg>
+          </button>
+        </div>
+        <p class="api-key-help">Your key is stored locally in your browser and sent securely to the server. Get one from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>.</p>
+      </div>
+
+      <div id="drop-zone" class="drop-zone" role="button" tabindex="0" aria-label="Drop a PDF file here or click to browse">
+        <div class="drop-zone__inner">
+          <!-- Upload cloud icon -->
+          <svg class="drop-zone__icon" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M44 42L32 30L20 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 30V56" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M54.28 48.28A12 12 0 0 0 48 26H44.64A19.2 19.2 0 0 0 8 32a19.2 19.2 0 0 0 6.4 14.4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M44 42L32 30L20 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="drop-zone__prompt">Drag & drop your PDF here</p>
+          <p class="drop-zone__or">or</p>
+          <button id="upload-btn" class="btn btn--secondary" type="button">Browse Files</button>
+          <p class="drop-zone__note">PDF files only · Max 20 MB</p>
+        </div>
+        <input type="file" id="file-input" accept=".pdf" hidden aria-label="Select PDF file">
+      </div>
+
+      <!-- File info (shown after file selection) -->
+      <div id="file-info" class="file-info hidden">
+        <div class="file-info__details">
+          <svg class="file-info__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#ef4444" stroke-width="1.5" fill="rgba(239,68,68,0.1)"/>
+            <path d="M14 2V8H20" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="12" y="17" text-anchor="middle" fill="#ef4444" font-size="5.5" font-weight="700" font-family="Inter, sans-serif">PDF</text>
+          </svg>
+          <div>
+            <p class="file-info__name" id="file-name"></p>
+            <p class="file-info__size" id="file-size"></p>
+          </div>
+        </div>
+        <button class="file-info__remove" id="remove-file-btn" type="button" aria-label="Remove file">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <!-- Error message area -->
+      <div id="upload-error" class="upload-error hidden" role="alert"></div>
+
+      <!-- Analyze button -->
+      <button id="analyze-btn" class="btn btn--primary btn--lg hidden" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="margin-right:8px"><path d="M9 3H5C3.89543 3 3 3.89543 3 5V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15 3H19C20.1046 3 21 3.89543 21 5V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 21H5C3.89543 21 3 20.1046 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>
+        Analyze Document
+      </button>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- PROCESSING SECTION                                     -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="processing-section" class="section processing-section hidden">
+      <div class="stepper">
+        <!-- Step 1: Upload -->
+        <div class="stepper__step" data-step="upload">
+          <div class="stepper__icon-wrap">
+            <svg class="stepper__icon" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg class="stepper__check" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="stepper__label">Upload</span>
+          <div class="stepper__line"></div>
+        </div>
+        <!-- Step 2: Extract Text -->
+        <div class="stepper__step" data-step="extracting">
+          <div class="stepper__icon-wrap">
+            <svg class="stepper__icon" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" stroke="currentColor" stroke-width="2"/><path d="M14 2V8H20" stroke="currentColor" stroke-width="2"/><path d="M8 13H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 17H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg class="stepper__check" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="stepper__label">Extract Text</span>
+          <div class="stepper__line"></div>
+        </div>
+        <!-- Step 3: Identify Claims -->
+        <div class="stepper__step" data-step="analyzing">
+          <div class="stepper__icon-wrap">
+            <svg class="stepper__icon" width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg class="stepper__check" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="stepper__label">Identify Claims</span>
+          <div class="stepper__line"></div>
+        </div>
+        <!-- Step 4: Verify Claims -->
+        <div class="stepper__step" data-step="verifying">
+          <div class="stepper__icon-wrap">
+            <svg class="stepper__icon" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 7V12.09C4 17.63 7.41 22.81 12 24C16.59 22.81 20 17.63 20 12.09V7L12 2Z" stroke="currentColor" stroke-width="2"/><path d="M8 12.5L11 15.5L16 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="stepper__check" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="stepper__label">Verify Claims</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-track">
+        <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
+      <!-- Status message -->
+      <p id="status-message" class="status-message">Preparing analysis...</p>
+
+      <!-- Pulsing orb -->
+      <div class="pulse-orb-container">
+        <div class="pulse-orb">
+          <div class="pulse-orb__ring pulse-orb__ring--1"></div>
+          <div class="pulse-orb__ring pulse-orb__ring--2"></div>
+          <div class="pulse-orb__ring pulse-orb__ring--3"></div>
+          <div class="pulse-orb__core"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- RESULTS SECTION                                        -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <section id="results-section" class="section results-section hidden">
+
+      <!-- Summary Dashboard -->
+      <div id="summary-dashboard" class="summary-dashboard">
+        <div class="stat-card stat-card--total">
+          <div class="stat-card__value" id="stat-total">0</div>
+          <div class="stat-card__label">Total Claims</div>
+          <div class="stat-card__pct" id="stat-total-pct"></div>
+        </div>
+        <div class="stat-card stat-card--verified">
+          <div class="stat-card__value" id="stat-verified">0</div>
+          <div class="stat-card__label">Verified</div>
+          <div class="stat-card__pct" id="stat-verified-pct"></div>
+        </div>
+        <div class="stat-card stat-card--inaccurate">
+          <div class="stat-card__value" id="stat-inaccurate">0</div>
+          <div class="stat-card__label">Inaccurate</div>
+          <div class="stat-card__pct" id="stat-inaccurate-pct"></div>
+        </div>
+        <div class="stat-card stat-card--false">
+          <div class="stat-card__value" id="stat-false">0</div>
+          <div class="stat-card__label">False</div>
+          <div class="stat-card__pct" id="stat-false-pct"></div>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="chart-container">
+        <canvas id="donut-chart" width="200" height="200"></canvas>
+        <div class="chart-legend" id="chart-legend"></div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div id="filter-btns" class="filter-btns">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn filter-btn--verified" data-filter="verified">Verified</button>
+        <button class="filter-btn filter-btn--inaccurate" data-filter="inaccurate">Inaccurate</button>
+        <button class="filter-btn filter-btn--false" data-filter="false">False</button>
+      </div>
+
+      <!-- Claims Container -->
+      <div id="claims-container" class="claims-container"></div>
+
+      <!-- Action Buttons -->
+      <div class="results-actions">
+        <button id="export-btn" class="btn btn--outline" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:6px"><path d="M21 15V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Export JSON
+        </button>
+        <button id="reset-btn" class="btn btn--outline" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:6px"><path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.51 15A9 9 0 1 0 5.64 5.64L1 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Analyze Another
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                  -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <footer class="app-footer">
+    <div class="container">
+      <p>Powered by <strong>Gemini AI</strong> + <strong>Google Search</strong></p>
+    </div>
+  </footer>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
