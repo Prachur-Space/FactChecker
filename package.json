@@ -1,0 +1,30 @@
+{
+  "name": "fact-checker",
+  "version": "1.0.0",
+  "description": "AI-powered fact-checking web app that extracts claims from PDFs and verifies them against live web data using Gemini + Google Search grounding.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "compression": "^1.7.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.0",
+    "multer": "^1.4.5-lts.1",
+    "unpdf": "^0.12.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "fact-checking",
+    "gemini",
+    "pdf",
+    "ai",
+    "verification"
+  ],
+  "license": "MIT"
+}
